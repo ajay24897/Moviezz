@@ -7,7 +7,7 @@ export default function Icon({
   type = 'outline',
   color = null,
   fill = null,
-  size = 40,
+  size = 30,
 }) {
   let IconComponent;
   switch (type) {
