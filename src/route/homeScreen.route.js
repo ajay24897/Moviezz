@@ -1,34 +1,46 @@
 import React from 'react';
 
-import {createMaterialBottomTabNavigator} from '@react-navigation/material-bottom-tabs';
 import SearchMovie from '../screens/homeScreen/searchMovie/searchMovie';
 import ExploreMovie from '../screens/homeScreen/exploreMovie/exploreMovie';
 import FavouriteMovie from '../screens/homeScreen/favouriteMovie/favouriteMovie';
-import Icon from '../commonComponents/icon.commonComponent';
+import Icon from '../commonComponents/icon';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import COLOR from '../constants/color';
 
-const Tab = createMaterialBottomTabNavigator();
+const Tab = createBottomTabNavigator();
+
+const TabList = [
+  {
+    route: 'searchMovie',
+    component: SearchMovie,
+    iconName: 'MagnifyingGlassIcon',
+  },
+  {
+    route: 'exploreMovie',
+    component: ExploreMovie,
+    iconName: 'FilmIcon',
+  },
+  {
+    route: 'favouriteMovie',
+    component: FavouriteMovie,
+    iconName: 'HeartIcon',
+  },
+];
 
 const HomeScreenRoute = () => {
-  const TabList = [
-    {
-      route: 'searchMovie',
-      component: SearchMovie,
-      iconName: 'MagnifyingGlassIcon',
-    },
-    {
-      route: 'exploreMovie',
-      component: ExploreMovie,
-      iconName: 'FilmIcon',
-    },
-    {
-      route: 'favouriteMovie',
-      component: FavouriteMovie,
-      iconName: 'HeartIcon',
-    },
-  ];
-
   return (
-    <Tab.Navigator shifting={true} labeled={false}>
+    <Tab.Navigator
+      shifting={true}
+      labeled={false}
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: COLOR.SECONDARY[900],
+          borderTopWidth: 0,
+          paddingTop: 10,
+        },
+      }}
+      initialRouteName="exploreMovie">
       {TabList.map((tab, index) => {
         return (
           <Tab.Screen
@@ -37,7 +49,13 @@ const HomeScreenRoute = () => {
             component={tab.component}
             options={{
               tabBarShowLabel: false,
-              tabBarIcon: () => <Icon name={tab.iconName} />,
+              tabBarIcon: ({focused}) => (
+                <Icon
+                  name={tab.iconName}
+                  color={focused ? COLOR.PRIMARY[700] : COLOR.SECONDARY[500]}
+                  fill={focused ? COLOR.PRIMARY[700] : COLOR.SECONDARY[900]}
+                />
+              ),
             }}
           />
         );

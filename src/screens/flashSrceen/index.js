@@ -1,11 +1,12 @@
-import {View, Text} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
+import PageWrapper from '../../commonComponents/pageWrapper';
 
 const FlashScreen = () => {
   return (
-    <View>
+    <PageWrapper>
       <Text>FlashScreen</Text>
-    </View>
+    </PageWrapper>
   );
 };
 

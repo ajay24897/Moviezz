@@ -12,7 +12,7 @@ const MainRoute = () => {
     <NavigationContainer>
       <Stack.Navigator
         screenOptions={{headerShown: false}}
-        initialRouteName="flashScreen">
+        initialRouteName="homeScreen">
         <Stack.Screen name="flashScreen" component={FlashScreen} />
         <Stack.Screen name="homeScreen" component={HomeScreen} />
       </Stack.Navigator>
