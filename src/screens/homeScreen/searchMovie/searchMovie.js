@@ -1,10 +1,11 @@
-import {Text, View} from 'react-native';
+import {Text} from 'react-native';
 import React from 'react';
+import PageWrapper from '../../../commonComponents/pageWrapper';
 
 export default function SearchMovie() {
   return (
-    <View>
+    <PageWrapper showNavbar={true}>
       <Text>SearchMovie</Text>
-    </View>
+    </PageWrapper>
   );
 }
