@@ -1,16 +1,15 @@
 import {StyleSheet, View} from 'react-native';
 import React from 'react';
-import Navbar from './navbar';
-import COLOR from '../constants/color';
 import {useSafeAreaInsets} from 'react-native-safe-area-context';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
+
+import Navbar from './navbar';
+import COLOR from '../constants/color';
 
 export default function PageWrapper(props) {
   const {
     children,
     showNavbar = false,
-    showBackButton,
-    onBackClick,
     PageWrapperStyle,
     addSafeAreaMargin,
   } = props;
@@ -23,9 +22,7 @@ export default function PageWrapper(props) {
         addSafeAreaMargin && {paddingTop: insets.top},
         PageWrapperStyle,
       ]}>
-      {showNavbar && (
-        <Navbar showBackButton={showBackButton} onBackClick={onBackClick} />
-      )}
+      {showNavbar && <Navbar />}
       {children}
     </View>
   );

@@ -23,7 +23,6 @@ function MovieListPreview(props) {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
-  console.log(movieList);
 
   useEffect(() => {
     setCurrentPage(1);
@@ -57,18 +56,20 @@ function MovieListPreview(props) {
 
   return (
     <>
-      <VirtualizedList
-        data={movieList}
-        contentContainerStyle={style.contentContainerStyle}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={item => item.id}
-        renderItem={({item}) => <MoviePreview movie={item} />}
-        onEndReached={onEndReached}
-        onEndReachedThreshold={0.5}
-        getItemCount={getItemCount}
-        getItem={getItem}
-        initialNumToRender={20}
-      />
+      {movieList.length > 0 && (
+        <VirtualizedList
+          data={movieList}
+          contentContainerStyle={style.contentContainerStyle}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item.id}
+          renderItem={({item}) => <MoviePreview movie={{...item, category}} />}
+          onEndReached={onEndReached}
+          onEndReachedThreshold={0.5}
+          getItemCount={getItemCount}
+          getItem={getItem}
+          initialNumToRender={20}
+        />
+      )}
       {isLoading && (
         <ActivityIndicator size="large" color={COLOR.PRIMARY[700]} />
       )}
@@ -88,23 +89,28 @@ const MoviePreview = memo(({movie}) => {
       <ImageBackground
         source={{uri: IMAGE_BASE_URL + movie.poster_path}}
         style={style.previewImage}>
-        <Icon
-          name={'StarIcon'}
-          type={'solid'}
-          fill={'yellow'}
-          size={45}
-          style={style.startIcon}
-        />
-        <CustomText
-          style={style.rating}
-          size={'xm'}
-          font={'medium'}
-          textStyle={{
-            ...style.rating,
-          }}>
-          {movie?.vote_average.toFixed(1)}
-        </CustomText>
+        {movie?.vote_average && (
+          <>
+            <Icon
+              name={'StarIcon'}
+              type={'solid'}
+              fill={'yellow'}
+              size={45}
+              style={style.startIcon}
+            />
+            <CustomText
+              style={style.rating}
+              size={'xm'}
+              font={'medium'}
+              textStyle={{
+                ...style.rating,
+              }}>
+              {movie?.vote_average.toFixed(1)}
+            </CustomText>
+          </>
+        )}
       </ImageBackground>
+
       <View
         style={{
           marginHorizontal: responsiveWidth(3),
@@ -120,6 +126,7 @@ const MoviePreview = memo(({movie}) => {
           }}>
           {movie?.title}
         </CustomText>
+
         <CustomText
           numberOfLines={1}
           size={'xs'}

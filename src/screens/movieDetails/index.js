@@ -48,9 +48,11 @@ export default function MovieDetails() {
         resizeMethod={'scale'}
         style={style.backgroundImage}>
         <View style={style.darkImageCover} />
+
         <TouchableOpacity style={style.backButton} onPress={onBackPress}>
           <Icon name={'ArrowLeftIcon'} type={'outline'} />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={[style.backButton, style.heartButton]}
           onPress={handleFavoriteMovie}>
@@ -65,7 +67,8 @@ export default function MovieDetails() {
             }
           />
         </TouchableOpacity>
-        <ScrollView>
+
+        <ScrollView showsVerticalScrollIndicator={false}>
           <Image
             source={{uri: IMAGE_BASE_URL + info.poster_path}}
             tintColorIntensity={1}
@@ -96,6 +99,7 @@ export default function MovieDetails() {
                   {formatDate(info.release_date)}
                 </CustomText>
               </View>
+
               <View style={style.flexSpaceBetween}>
                 <CustomText {...commonFont}>Rating</CustomText>
                 <CustomText {...commonFont}>
@@ -113,7 +117,7 @@ export default function MovieDetails() {
 const commonFont = {
   size: 'xs',
   font: 'light',
-  textStyle: {color: '#fff'},
+  textStyle: {color: COLOR.SECONDARY[200]},
 };
 
 const style = StyleSheet.create({
@@ -125,7 +129,7 @@ const style = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#000000',
+    backgroundColor: COLOR.SECONDARY[950],
     opacity: 0.85,
   },
   backgroundImage: {

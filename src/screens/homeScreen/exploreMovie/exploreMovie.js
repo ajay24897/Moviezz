@@ -17,38 +17,40 @@ export default function ExploreMovie() {
   }
 
   return (
-    <PageWrapper addSafeAreaMargin>
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        data={CATEGORIES}
-        renderItem={({item}) => {
-          return (
-            <View
-              style={[
-                style.categorytTextContainer,
-                {
-                  borderBottomWidth: item.key === selectedCategory ? 1 : 0,
-                },
-              ]}>
-              <CustomText
-                size={'s'}
-                font={'medium'}
-                onPress={() => handleCategoryChange(item.key)}
-                textStyle={{
-                  color:
-                    item.key === selectedCategory
-                      ? COLOR.PRIMARY[600]
-                      : COLOR.SECONDARY[400],
-                  paddingBottom: responsiveWidth(2.5),
-                }}>
-                {item.label}
-              </CustomText>
-            </View>
-          );
-        }}
-        style={style.categoryListContainer}
-      />
+    <PageWrapper addSafeAreaMargin showNavbar>
+      <View>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          data={CATEGORIES}
+          renderItem={({item}) => {
+            return (
+              <View
+                style={[
+                  style.categorytTextContainer,
+                  {
+                    borderBottomWidth: item.key === selectedCategory ? 1 : 0,
+                  },
+                ]}>
+                <CustomText
+                  size={'s'}
+                  font={'medium'}
+                  onPress={() => handleCategoryChange(item.key)}
+                  textStyle={{
+                    color:
+                      item.key === selectedCategory
+                        ? COLOR.SECONDARY[100]
+                        : COLOR.SECONDARY[600],
+                    paddingBottom: responsiveWidth(2.5),
+                  }}>
+                  {item.label}
+                </CustomText>
+              </View>
+            );
+          }}
+          style={style.categoryListContainer}
+        />
+      </View>
       <MovieListPreview category={selectedCategory} />
     </PageWrapper>
   );
