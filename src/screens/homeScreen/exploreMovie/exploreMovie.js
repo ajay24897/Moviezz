@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 
 import PageWrapper from '../../../commonComponents/pageWrapper';
 import {FlatList} from 'react-native-gesture-handler';
@@ -8,6 +8,7 @@ import {responsiveWidth} from 'react-native-responsive-dimensions';
 import CustomText from '../../../commonComponents/customText';
 import COLOR from '../../../constants/color';
 import {CATEGORIES} from '../../../constants/value';
+import Animated, {ZoomIn} from 'react-native-reanimated';
 
 export default function ExploreMovie() {
   const [selectedCategory, setSelectedCategory] = useState('now_playing');
@@ -18,20 +19,21 @@ export default function ExploreMovie() {
 
   return (
     <PageWrapper addSafeAreaMargin showNavbar>
-      <View>
+      <Animated.View>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
           data={CATEGORIES}
-          renderItem={({item}) => {
+          renderItem={({item}, index) => {
             return (
-              <View
+              <Animated.View
                 style={[
                   style.categorytTextContainer,
                   {
                     borderBottomWidth: item.key === selectedCategory ? 1 : 0,
                   },
-                ]}>
+                ]}
+                entering={ZoomIn.delay(index * 200)}>
                 <CustomText
                   size={'s'}
                   font={'medium'}
@@ -45,12 +47,12 @@ export default function ExploreMovie() {
                   }}>
                   {item.label}
                 </CustomText>
-              </View>
+              </Animated.View>
             );
           }}
           style={style.categoryListContainer}
         />
-      </View>
+      </Animated.View>
       <MovieListPreview category={selectedCategory} />
     </PageWrapper>
   );

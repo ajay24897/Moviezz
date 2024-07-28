@@ -1,7 +1,6 @@
 import {
   View,
   ImageBackground,
-  Image,
   StyleSheet,
   TouchableOpacity,
 } from 'react-native';
@@ -24,6 +23,7 @@ import {
   WINDOW_WIDTH,
 } from '../../constants/value';
 import {formatDate} from '../../utils/function/function';
+import Animated, {FadeInDown, StretchInX} from 'react-native-reanimated';
 
 export default function MovieDetails() {
   const route = useRoute();
@@ -69,16 +69,20 @@ export default function MovieDetails() {
         </TouchableOpacity>
 
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Image
+          <Animated.Image
             source={{uri: IMAGE_BASE_URL + info.poster_path}}
             tintColorIntensity={1}
             colorFilter="grayscale"
             style={style.image}
             resizeMode={'cover'}
-            sharedTransitionTag={info.id}
+            sharedTransitionTag={info?.id.toString()}
           />
           <View style={style.detailsContainer}>
-            <CustomText size={'l'} font="bold" textStyle={style.title}>
+            <CustomText
+              size={'l'}
+              font="bold"
+              textStyle={style.title}
+              entering={FadeInDown.duration(500)}>
               {info.title}
             </CustomText>
 
@@ -88,11 +92,14 @@ export default function MovieDetails() {
               textStyle={{
                 color: COLOR.SECONDARY[300],
                 marginVertical: responsiveWidth(4),
-              }}>
+              }}
+              entering={FadeInDown.delay(200).duration(500)}>
               {info?.overview}
             </CustomText>
 
-            <View style={style.releaseDateInfo}>
+            <Animated.View
+              style={style.releaseDateInfo}
+              entering={FadeInDown.delay(400).duration(500)}>
               <View style={style.flexSpaceBetween}>
                 <CustomText {...commonFont}>Release date</CustomText>
                 <CustomText {...commonFont}>
@@ -106,7 +113,7 @@ export default function MovieDetails() {
                   {info.vote_average.toFixed(1)} / 10
                 </CustomText>
               </View>
-            </View>
+            </Animated.View>
           </View>
         </ScrollView>
       </ImageBackground>

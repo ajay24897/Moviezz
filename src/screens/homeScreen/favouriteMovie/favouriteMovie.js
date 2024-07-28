@@ -15,6 +15,7 @@ import COLOR from '../../../constants/color';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
 import {useNavigation} from '@react-navigation/native';
 import Icon from '../../../commonComponents/icon';
+import Animated, {FadeInDown, FadeInUp} from 'react-native-reanimated';
 
 export default function FavouriteMovie() {
   const {favoriteMovieList, section} = useSelector(
@@ -31,7 +32,11 @@ export default function FavouriteMovie() {
             size={60}
             color={COLOR.PRIMARY[700]}
           />
-          <CustomText size={'s'} textStyle={style.emptyListText}>
+          <CustomText
+            size={'s'}
+            textStyle={style.emptyListText}
+            entering={FadeInDown.duration(500)}
+            exiting={FadeInUp.duration(200)}>
             Your list of favorite movies is empty.
           </CustomText>
         </View>
@@ -79,10 +84,11 @@ function HorizonatalList({id}) {
     <TouchableOpacity
       style={style.horizontalMoviePreview}
       onPress={onMovieClick}>
-      <Image
+      <Animated.Image
         style={style.imageStyle}
         resizeMode={'cover'}
         source={{uri: IMAGE_BASE_URL + favoriteMovieList[id].poster_path}}
+        sharedTransitionTag={id.toString()}
       />
     </TouchableOpacity>
   );

@@ -16,6 +16,7 @@ import CustomText from './customText';
 import Icon from './icon';
 import {IMAGE_BASE_URL, WINDOW_WIDTH} from '../constants/value';
 import {formatDate} from '../utils/function/function';
+import Animated, {FadeInDown, ZoomIn, ZoomOut} from 'react-native-reanimated';
 
 function MovieListPreview(props) {
   const {category} = props;
@@ -90,7 +91,7 @@ const MoviePreview = memo(({movie}) => {
         source={{uri: IMAGE_BASE_URL + movie.poster_path}}
         style={style.previewImage}>
         {movie?.vote_average > 0 && (
-          <>
+          <Animated.View entering={ZoomIn} style={style.startIcon}>
             <Icon
               name={'StarIcon'}
               type={'solid'}
@@ -107,7 +108,7 @@ const MoviePreview = memo(({movie}) => {
               }}>
               {movie?.vote_average.toFixed(1)}
             </CustomText>
-          </>
+          </Animated.View>
         )}
       </ImageBackground>
 
@@ -123,7 +124,8 @@ const MoviePreview = memo(({movie}) => {
           textStyle={{
             color: COLOR.SECONDARY[300],
             marginBottom: responsiveWidth(1),
-          }}>
+          }}
+          entering={FadeInDown.delay(200)}>
           {movie?.title}
         </CustomText>
 
@@ -131,7 +133,8 @@ const MoviePreview = memo(({movie}) => {
           numberOfLines={1}
           size={'xs'}
           font={'light'}
-          textStyle={{color: COLOR.SECONDARY[300]}}>
+          textStyle={{color: COLOR.SECONDARY[300]}}
+          entering={FadeInDown.delay(300)}>
           {formatDate(movie?.release_date)}
         </CustomText>
       </View>

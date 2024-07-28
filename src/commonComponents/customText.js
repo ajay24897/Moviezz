@@ -1,15 +1,16 @@
-import {Text, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import React from 'react';
 import {responsiveFontSize} from 'react-native-responsive-dimensions';
+import Animated from 'react-native-reanimated';
 
 export default function CustomText(props) {
   const fontFamily = style[props?.font ?? 'medium'];
   const fontSize = style[props?.size ?? 'm'];
 
   return (
-    <Text {...props} style={[fontFamily, fontSize, props.textStyle]}>
+    <Animated.Text {...props} style={[fontFamily, fontSize, props.textStyle]}>
       {props?.children}
-    </Text>
+    </Animated.Text>
   );
 }
 

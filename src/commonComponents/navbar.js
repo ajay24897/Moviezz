@@ -3,10 +3,15 @@ import CustomText from './customText';
 import COLOR from '../constants/color';
 import {StyleSheet} from 'react-native';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
+import {FadeInUp} from 'react-native-reanimated';
 
 export default function Navbar() {
   return (
-    <CustomText type={'bold'} size={'m'} textStyle={style.navbarTex}>
+    <CustomText
+      type={'bold'}
+      size={'m'}
+      textStyle={style.navbarTex}
+      entering={FadeInUp}>
       Moviezz
     </CustomText>
   );
