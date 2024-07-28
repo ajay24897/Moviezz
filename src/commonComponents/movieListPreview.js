@@ -1,12 +1,10 @@
 import React, {memo, useEffect, useState} from 'react';
 import {
-  Dimensions,
   StyleSheet,
   ActivityIndicator,
   VirtualizedList,
   TouchableOpacity,
   ImageBackground,
-  Text,
   View,
 } from 'react-native';
 import {useNavigation} from '@react-navigation/native';
@@ -17,6 +15,7 @@ import COLOR from '../constants/color';
 import CustomText from './customText';
 import Icon from './icon';
 import {IMAGE_BASE_URL, WINDOW_WIDTH} from '../constants/value';
+import {formatDate} from '../utils/function/function';
 
 function MovieListPreview(props) {
   const {category} = props;
@@ -126,7 +125,7 @@ const MoviePreview = memo(({movie}) => {
           size={'xs'}
           font={'light'}
           textStyle={{color: COLOR.SECONDARY[300]}}>
-          {movie?.release_date}
+          {formatDate(movie?.release_date)}
         </CustomText>
       </View>
     </TouchableOpacity>

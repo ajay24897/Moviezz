@@ -1,6 +1,5 @@
 import {
   View,
-  Dimensions,
   ImageBackground,
   Image,
   StyleSheet,
@@ -24,6 +23,7 @@ import {
   WINDOW_HEIGHT,
   WINDOW_WIDTH,
 } from '../../constants/value';
+import {formatDate} from '../../utils/function/function';
 
 export default function MovieDetails() {
   const route = useRoute();
@@ -92,7 +92,9 @@ export default function MovieDetails() {
             <View style={style.releaseDateInfo}>
               <View style={style.flexSpaceBetween}>
                 <CustomText {...commonFont}>Release date</CustomText>
-                <CustomText {...commonFont}>{info.release_date}</CustomText>
+                <CustomText {...commonFont}>
+                  {formatDate(info.release_date)}
+                </CustomText>
               </View>
               <View style={style.flexSpaceBetween}>
                 <CustomText {...commonFont}>Rating</CustomText>
