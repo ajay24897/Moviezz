@@ -5,30 +5,32 @@ import {
   Dimensions,
   StyleSheet,
   ActivityIndicator,
+  VirtualizedList,
 } from 'react-native';
-import {FlatList} from 'react-native-gesture-handler';
+
 import axiosInstance from '../utils/axios/axiosInstance';
+import COLOR from '../constants/color';
+
+const poster = 'https://image.tmdb.org/t/p/original';
 
 function MovieListPreview(props) {
   const {category} = props;
-  const poster = 'https://image.tmdb.org/t/p/original';
 
-  const [currentPage, setCurrentPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [movieList, setMovieList] = useState([]);
 
   useEffect(() => {
-    if (movieList.length) {
-      setMovieList([]);
-    }
+    setCurrentPage(1);
+    setMovieList([]);
     fetchMovies();
   }, [category]);
 
-  async function fetchMovies() {
+  async function fetchMovies(page = 1) {
     try {
       setIsLoading(true);
       const response = await axiosInstance.get(
-        `movie/${category}?$language=en-US&page=1`,
+        `movie/${category}?$language=en-US&page=${page}`,
       );
       setMovieList(prev => {
         return [...prev, ...response.data.results];
@@ -40,34 +42,45 @@ function MovieListPreview(props) {
     }
   }
 
-  const renderFooter = () => {
-    return isLoading && <ActivityIndicator size="large" color="#0000ff" />;
-  };
+  function onEndReached() {
+    setCurrentPage(prev => prev + 1);
+    fetchMovies(currentPage + 1);
+  }
 
-  console.log('movieList', movieList);
-
-  function onEndReached() {}
+  const getItem = (data, index) => data[index];
+  const getItemCount = data => data.length;
 
   return (
-    <FlatList
-      data={movieList}
-      contentContainerStyle={style.contentContainerStyle}
-      showsVerticalScrollIndicator={false}
-      keyExtractor={item => item.id}
-      renderItem={({item}) => (
-        <View style={style.movieContainer}>
-          <Image
-            source={{uri: poster + item.poster_path}}
-            style={style.previewImage}
-          />
-        </View>
+    <>
+      <VirtualizedList
+        data={movieList}
+        contentContainerStyle={style.contentContainerStyle}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={item => item.id}
+        renderItem={({item}) => <MoviePreview movie={item} />}
+        onEndReached={onEndReached}
+        onEndReachedThreshold={0.5}
+        getItemCount={getItemCount}
+        getItem={getItem}
+        initialNumToRender={20}
+      />
+      {isLoading && (
+        <ActivityIndicator size="large" color={COLOR.PRIMARY[700]} />
       )}
-      onEndReached={onEndReached}
-      onEndReachedThreshold={0.5}
-      ListFooterComponent={renderFooter}
-    />
+    </>
   );
 }
+
+const MoviePreview = memo(({movie}) => {
+  return (
+    <View style={style.movieContainer}>
+      <Image
+        source={{uri: poster + movie.poster_path}}
+        style={style.previewImage}
+      />
+    </View>
+  );
+});
 
 const style = StyleSheet.create({
   contentContainerStyle: {
@@ -84,7 +97,7 @@ const style = StyleSheet.create({
     flex: 1,
     resizeMode: 'stretch',
     borderRadius: 5,
-    backgroundColor: 'red',
+    backgroundColor: COLOR.SECONDARY[700],
   },
 });
 
