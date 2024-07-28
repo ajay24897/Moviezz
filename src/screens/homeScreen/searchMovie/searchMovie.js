@@ -4,7 +4,7 @@ import PageWrapper from '../../../commonComponents/pageWrapper';
 
 export default function SearchMovie() {
   return (
-    <PageWrapper showNavbar={true}>
+    <PageWrapper showNavbar addSafeAreaMargin>
       <Text>SearchMovie</Text>
     </PageWrapper>
   );
