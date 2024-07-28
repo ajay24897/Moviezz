@@ -13,20 +13,27 @@ import {
   responsiveFontSize,
   responsiveWidth,
 } from 'react-native-responsive-dimensions';
+import {useDispatch, useSelector} from 'react-redux';
 
 import COLOR from '../../constants/color';
 import CustomText from '../../commonComponents/customText';
 import Icon from '../../commonComponents/icon';
+import {updateFavoriteMovie} from '../../redux/favoriteMovieSlice';
 const poster = 'https://image.tmdb.org/t/p/original';
 
 export default function MovieDetails() {
   const route = useRoute();
   const navigation = useNavigation();
-  const {info} = route.params; // Destructure the parameters
-  const isFavorite = false;
+  const dispatch = useDispatch();
+  const {favoriteMovieList} = useSelector(state => state.favoriteMovieSlice);
+  const {info} = route.params;
 
   function onBackPress() {
     navigation.goBack();
+  }
+
+  function handleFavoriteMovie() {
+    dispatch(updateFavoriteMovie(info));
   }
 
   return (
@@ -40,12 +47,18 @@ export default function MovieDetails() {
         <TouchableOpacity style={style.backButton} onPress={onBackPress}>
           <Icon name={'ArrowLeftIcon'} type={'outline'} />
         </TouchableOpacity>
-        <TouchableOpacity style={[style.backButton, style.heartButton]}>
+        <TouchableOpacity
+          style={[style.backButton, style.heartButton]}
+          onPress={handleFavoriteMovie}>
           <Icon
             name={'HeartIcon'}
             type={'outline'}
             color={COLOR.PRIMARY[700]}
-            fill={isFavorite ? COLOR.PRIMARY[700] : 'null'}
+            fill={
+              favoriteMovieList[info.id]
+                ? COLOR.PRIMARY[700]
+                : COLOR.SECONDARY[100]
+            }
           />
         </TouchableOpacity>
         <ScrollView>
