@@ -23,11 +23,9 @@ const style = StyleSheet.create({
   light: {
     fontFamily: 'Roboto-Light',
   },
-
   l: {
     fontSize: responsiveFontSize(5),
   },
-
   m: {
     fontSize: responsiveFontSize(3),
   },

@@ -16,8 +16,7 @@ import axiosInstance from '../utils/axios/axiosInstance';
 import COLOR from '../constants/color';
 import CustomText from './customText';
 import Icon from './icon';
-
-const poster = 'https://image.tmdb.org/t/p/original';
+import {IMAGE_BASE_URL, WINDOW_WIDTH} from '../constants/value';
 
 function MovieListPreview(props) {
   const {category} = props;
@@ -88,7 +87,7 @@ const MoviePreview = memo(({movie}) => {
   return (
     <TouchableOpacity style={style.movieContainer} onPress={onMovieClick}>
       <ImageBackground
-        source={{uri: poster + movie.poster_path}}
+        source={{uri: IMAGE_BASE_URL + movie.poster_path}}
         style={style.previewImage}>
         <Icon
           name={'StarIcon'}
@@ -134,8 +133,6 @@ const MoviePreview = memo(({movie}) => {
   );
 });
 
-const imageWidth = Dimensions.get('window').width * 0.45;
-
 const style = StyleSheet.create({
   contentContainerStyle: {
     flexDirection: 'row',
@@ -145,15 +142,15 @@ const style = StyleSheet.create({
   movieContainer: {
     display: 'flex',
     position: 'relative',
-    width: imageWidth,
+    width: WINDOW_WIDTH * 0.45,
     marginBottom: responsiveWidth(4),
     backgroundColor: COLOR.SECONDARY[800],
     overflow: 'hidden',
     borderRadius: 10,
   },
   previewImage: {
-    width: imageWidth,
-    height: Dimensions.get('window').width * 0.65,
+    width: WINDOW_WIDTH * 0.45,
+    height: WINDOW_WIDTH * 0.65,
     flex: 1,
     resizeMode: 'stretch',
     backgroundColor: COLOR.SECONDARY[700],

@@ -7,16 +7,10 @@ import MovieListPreview from '../../../commonComponents/movieListPreview';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
 import CustomText from '../../../commonComponents/customText';
 import COLOR from '../../../constants/color';
+import {CATEGORIES} from '../../../constants/value';
 
 export default function ExploreMovie() {
   const [selectedCategory, setSelectedCategory] = useState('now_playing');
-
-  const categories = [
-    {label: 'Now Playing', key: 'now_playing'},
-    {label: 'Popular', key: 'popular'},
-    {label: 'Top Rated', key: 'top_rated'},
-    {label: 'Upcoming', key: 'upcoming'},
-  ];
 
   function handleCategoryChange(categoryKey) {
     setSelectedCategory(categoryKey);
@@ -27,7 +21,7 @@ export default function ExploreMovie() {
       <FlatList
         horizontal
         showsHorizontalScrollIndicator={false}
-        data={categories}
+        data={CATEGORIES}
         renderItem={({item}) => {
           return (
             <View

@@ -5,7 +5,7 @@ const initialState = {
 };
 
 export const favoriteMovieSlice = createSlice({
-  name: 'counter',
+  name: 'favoriteMovieSlice',
   initialState,
   reducers: {
     updateFavoriteMovie: (state, action) => {

@@ -19,7 +19,11 @@ import COLOR from '../../constants/color';
 import CustomText from '../../commonComponents/customText';
 import Icon from '../../commonComponents/icon';
 import {updateFavoriteMovie} from '../../redux/favoriteMovieSlice';
-const poster = 'https://image.tmdb.org/t/p/original';
+import {
+  IMAGE_BASE_URL,
+  WINDOW_HEIGHT,
+  WINDOW_WIDTH,
+} from '../../constants/value';
 
 export default function MovieDetails() {
   const route = useRoute();
@@ -39,7 +43,7 @@ export default function MovieDetails() {
   return (
     <View style={style.container}>
       <ImageBackground
-        source={{uri: poster + info.poster_path}}
+        source={{uri: IMAGE_BASE_URL + info.poster_path}}
         tintColorIntensity={1}
         resizeMethod={'scale'}
         style={style.backgroundImage}>
@@ -63,7 +67,7 @@ export default function MovieDetails() {
         </TouchableOpacity>
         <ScrollView>
           <Image
-            source={{uri: poster + info.poster_path}}
+            source={{uri: IMAGE_BASE_URL + info.poster_path}}
             tintColorIntensity={1}
             colorFilter="grayscale"
             style={style.image}
@@ -123,13 +127,13 @@ const style = StyleSheet.create({
     opacity: 0.85,
   },
   backgroundImage: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').height,
+    width: WINDOW_WIDTH,
+    height: WINDOW_HEIGHT,
     resizeMode: 'cover',
   },
   image: {
-    width: Dimensions.get('window').width,
-    height: Dimensions.get('window').width * 1.4,
+    width: WINDOW_WIDTH,
+    height: WINDOW_WIDTH * 1.4,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
