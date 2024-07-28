@@ -89,7 +89,7 @@ const MoviePreview = memo(({movie}) => {
       <ImageBackground
         source={{uri: IMAGE_BASE_URL + movie.poster_path}}
         style={style.previewImage}>
-        {movie?.vote_average && (
+        {movie?.vote_average > 0 && (
           <>
             <Icon
               name={'StarIcon'}

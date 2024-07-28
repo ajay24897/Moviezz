@@ -44,7 +44,7 @@ export default function FavouriteMovie() {
       {Object.entries(section).map(sectionItem => {
         return (
           Object.keys(sectionItem[1])?.length > 0 && (
-            <>
+            <View style={style.section}>
               <CustomText
                 textStyle={{
                   color: COLOR.SECONDARY[400],
@@ -60,7 +60,7 @@ export default function FavouriteMovie() {
                 data={Object.keys(sectionItem[1])}
                 renderItem={({item}) => <HorizonatalList id={item} />}
               />
-            </>
+            </View>
           )
         );
       })}
@@ -108,4 +108,5 @@ const style = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+  section: {marginBottom: responsiveWidth(4)},
 });
