@@ -89,20 +89,23 @@ const MoviePreview = memo(({movie}) => {
     <TouchableOpacity style={style.movieContainer} onPress={onMovieClick}>
       <ImageBackground
         source={{uri: poster + movie.poster_path}}
-        style={style.previewImage}
-
-        // sharedTransitionTag={movie.id}
-      >
+        style={style.previewImage}>
         <Icon
           name={'StarIcon'}
           type={'solid'}
           fill={'yellow'}
           size={45}
-          style={{position: 'absolute', top: 10, right: 10}}
+          style={style.startIcon}
         />
-        <Text style={{position: 'absolute', top: 25, right: 23}}>
+        <CustomText
+          style={style.rating}
+          size={'xm'}
+          font={'medium'}
+          textStyle={{
+            ...style.rating,
+          }}>
           {movie?.vote_average.toFixed(1)}
-        </Text>
+        </CustomText>
       </ImageBackground>
       <View
         style={{
@@ -111,25 +114,27 @@ const MoviePreview = memo(({movie}) => {
         }}>
         <CustomText
           numberOfLines={1}
-          size={'l'}
-          font={'bold'}
-          style={{
+          size={'s'}
+          font={'medium'}
+          textStyle={{
             color: COLOR.SECONDARY[300],
             marginBottom: responsiveWidth(1),
           }}>
-          {movie?.original_title}
+          {movie?.title}
         </CustomText>
         <CustomText
           numberOfLines={1}
-          size={'m'}
+          size={'xs'}
           font={'light'}
-          style={{color: COLOR.SECONDARY[300]}}>
+          textStyle={{color: COLOR.SECONDARY[300]}}>
           {movie?.release_date}
         </CustomText>
       </View>
     </TouchableOpacity>
   );
 });
+
+const imageWidth = Dimensions.get('window').width * 0.45;
 
 const style = StyleSheet.create({
   contentContainerStyle: {
@@ -140,18 +145,26 @@ const style = StyleSheet.create({
   movieContainer: {
     display: 'flex',
     position: 'relative',
-    width: Dimensions.get('window').width * 0.45,
+    width: imageWidth,
     marginBottom: responsiveWidth(4),
     backgroundColor: COLOR.SECONDARY[800],
     overflow: 'hidden',
     borderRadius: 10,
   },
   previewImage: {
-    width: Dimensions.get('window').width * 0.45,
+    width: imageWidth,
     height: Dimensions.get('window').width * 0.65,
     flex: 1,
     resizeMode: 'stretch',
     backgroundColor: COLOR.SECONDARY[700],
+  },
+  startIcon: {position: 'absolute', top: 10, right: 10},
+  rating: {
+    position: 'absolute',
+    top: 25,
+    right: 23,
+    color: COLOR.SECONDARY[800],
+    marginBottom: responsiveWidth(1),
   },
 });
 

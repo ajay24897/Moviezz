@@ -39,7 +39,7 @@ export default function ExploreMovie() {
               ]}>
               <CustomText
                 size={'s'}
-                font={'light'}
+                font={'medium'}
                 onPress={() => handleCategoryChange(item.key)}
                 textStyle={{
                   color:

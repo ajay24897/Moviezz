@@ -7,7 +7,7 @@ export default function CustomText(props) {
   const fontSize = style[props?.size ?? 'm'];
 
   return (
-    <Text style={[fontFamily, fontSize, props.textStyle]} {...props}>
+    <Text {...props} style={[fontFamily, fontSize, props.textStyle]}>
       {props?.children}
     </Text>
   );
@@ -25,7 +25,7 @@ const style = StyleSheet.create({
   },
 
   l: {
-    fontSize: responsiveFontSize(50),
+    fontSize: responsiveFontSize(5),
   },
 
   m: {
