@@ -1,10 +1,12 @@
 import React, {useState} from 'react';
-import {Text} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 
 import PageWrapper from '../../../commonComponents/pageWrapper';
 import {FlatList} from 'react-native-gesture-handler';
 import MovieListPreview from '../../../commonComponents/movieListPreview';
 import {responsiveWidth} from 'react-native-responsive-dimensions';
+import CustomText from '../../../commonComponents/customText';
+import COLOR from '../../../constants/color';
 
 export default function ExploreMovie() {
   const [selectedCategory, setSelectedCategory] = useState('now_playing');
@@ -28,18 +30,42 @@ export default function ExploreMovie() {
         data={categories}
         renderItem={({item}) => {
           return (
-            <Text
-              onPress={() => handleCategoryChange(item.key)}
-              style={{
-                color: item.key === selectedCategory ? 'red' : '#fff',
-                marginRight: responsiveWidth(2),
-              }}>
-              {item.label}
-            </Text>
+            <View
+              style={[
+                style.categorytTextContainer,
+                {
+                  borderBottomWidth: item.key === selectedCategory ? 1 : 0,
+                },
+              ]}>
+              <CustomText
+                size={'s'}
+                font={'light'}
+                onPress={() => handleCategoryChange(item.key)}
+                textStyle={{
+                  color:
+                    item.key === selectedCategory
+                      ? COLOR.PRIMARY[600]
+                      : COLOR.SECONDARY[400],
+                  paddingBottom: responsiveWidth(2.5),
+                }}>
+                {item.label}
+              </CustomText>
+            </View>
           );
         }}
+        style={style.categoryListContainer}
       />
       <MovieListPreview category={selectedCategory} />
     </PageWrapper>
   );
 }
+
+const style = StyleSheet.create({
+  categoryListContainer: {
+    marginBottom: responsiveWidth(2),
+  },
+  categorytTextContainer: {
+    marginRight: responsiveWidth(3),
+    borderBottomColor: COLOR.PRIMARY[600],
+  },
+});
