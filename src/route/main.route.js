@@ -4,6 +4,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import FlashScreen from '../screens/flashSrceen';
 import HomeScreen from '../screens/homeScreen';
+import MovieDetails from '../screens/movieDetails';
 
 const Stack = createStackNavigator();
 
@@ -15,6 +16,7 @@ const MainRoute = () => {
         initialRouteName="homeScreen">
         <Stack.Screen name="flashScreen" component={FlashScreen} />
         <Stack.Screen name="homeScreen" component={HomeScreen} />
+        <Stack.Screen name="movieDetails" component={MovieDetails} />
       </Stack.Navigator>
     </NavigationContainer>
   );

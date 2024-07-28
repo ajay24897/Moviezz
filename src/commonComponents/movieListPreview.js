@@ -1,15 +1,16 @@
 import React, {memo, useEffect, useState} from 'react';
 import {
-  View,
-  Image,
   Dimensions,
   StyleSheet,
   ActivityIndicator,
   VirtualizedList,
+  TouchableOpacity,
+  Image,
 } from 'react-native';
 
 import axiosInstance from '../utils/axios/axiosInstance';
 import COLOR from '../constants/color';
+import {useNavigation} from '@react-navigation/native';
 
 const poster = 'https://image.tmdb.org/t/p/original';
 
@@ -72,13 +73,20 @@ function MovieListPreview(props) {
 }
 
 const MoviePreview = memo(({movie}) => {
+  const navigation = useNavigation();
+
+  function onMovieClick() {
+    navigation.navigate('movieDetails', {info: movie});
+  }
+
   return (
-    <View style={style.movieContainer}>
+    <TouchableOpacity style={style.movieContainer} onPress={onMovieClick}>
       <Image
         source={{uri: poster + movie.poster_path}}
         style={style.previewImage}
+        // sharedTransitionTag={movie.id}
       />
-    </View>
+    </TouchableOpacity>
   );
 });
 
