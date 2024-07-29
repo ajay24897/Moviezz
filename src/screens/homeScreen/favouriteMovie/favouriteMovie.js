@@ -1,6 +1,7 @@
 import {
   FlatList,
   Image,
+  ScrollView,
   StyleSheet,
   TouchableOpacity,
   View,
@@ -46,29 +47,31 @@ export default function FavouriteMovie() {
 
   return (
     <PageWrapper addSafeAreaMargin showNavbar>
-      {Object.entries(section).map(sectionItem => {
-        return (
-          Object.keys(sectionItem[1])?.length > 0 && (
-            <View style={style.section}>
-              <CustomText
-                textStyle={{
-                  color: COLOR.SECONDARY[400],
-                  marginBottom: responsiveWidth(3),
-                }}>
-                {capitalizeFirstLetterOfEachWord(
-                  sectionItem[0].replace('_', ' '),
-                )}
-              </CustomText>
-              <FlatList
-                showsHorizontalScrollIndicator={false}
-                horizontal
-                data={Object.keys(sectionItem[1])}
-                renderItem={({item}) => <HorizonatalList id={item} />}
-              />
-            </View>
-          )
-        );
-      })}
+      <ScrollView showsVerticalScrollIndicator={false}>
+        {Object.entries(section).map(sectionItem => {
+          return (
+            Object.keys(sectionItem[1])?.length > 0 && (
+              <View style={style.section}>
+                <CustomText
+                  textStyle={{
+                    color: COLOR.SECONDARY[400],
+                    marginBottom: responsiveWidth(3),
+                  }}>
+                  {capitalizeFirstLetterOfEachWord(
+                    sectionItem[0].replace('_', ' '),
+                  )}
+                </CustomText>
+                <FlatList
+                  showsHorizontalScrollIndicator={false}
+                  horizontal
+                  data={Object.keys(sectionItem[1])}
+                  renderItem={({item}) => <HorizonatalList id={item} />}
+                />
+              </View>
+            )
+          );
+        })}
+      </ScrollView>
     </PageWrapper>
   );
 }
