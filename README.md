@@ -2,6 +2,8 @@
 
 The movie browsing app allows users to browse movies in various categories and provides movie information.
 
+Note - (Task to be implement are Search movies , Adding the toast message, unit testing, ui update ) 
+
 ### `Run app`
 - Clone or download the repo.
 - Install dependencies: yarn add
